@@ -16,6 +16,19 @@ android {
 
     }
 
+    productFlavors {
+        production {
+            applicationId "tx.app.prod"
+            buildConfigField "boolean", "DUMMY", "false"
+            buildConfigField "String", "ENVIRONMENT", "\"dummy\""
+        }
+        dummy {
+            applicationId "tx.app.dummy"
+            buildConfigField "boolean", "DUMMY", "true"
+            buildConfigField "String", "ENVIRONMENT", "\"dummy\""
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -32,15 +45,19 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha2'
+    compile 'com.jakewharton:butterknife:7.0.1'
 
+    // dagger
     apt 'com.google.dagger:dagger-compiler:2.1'
     compile 'com.google.dagger:dagger:2.1'
+
+    // rxjava
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxjava:1.1.5'
+
+    // web communication
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.1.2'
     compile 'com.squareup.okhttp3:okhttp:3.1.1'
-
-
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
