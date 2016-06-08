@@ -2,6 +2,7 @@ package no.txcb.sample;
 
 import javax.inject.Inject;
 
+import no.txcb.sample.data.DataApi;
 import no.txcb.sample.tools.RxAssist;
 
 public class DataPresenter {

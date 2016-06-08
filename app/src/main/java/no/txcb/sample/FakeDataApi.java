@@ -1,5 +1,6 @@
 package no.txcb.sample;
 
+import no.txcb.sample.data.DataApi;
 import rx.Observable;
 
 public class FakeDataApi implements DataApi {
