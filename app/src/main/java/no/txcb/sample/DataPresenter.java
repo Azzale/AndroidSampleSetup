@@ -18,7 +18,7 @@ public class DataPresenter {
 
 
     public void buttonClicked() {
-        dataApi.getTitleObservable()
+        dataApi.getProfileName()
                 .compose(RxAssist.applyDefaultSchedulers())
                 .subscribe(text -> view.setWelcomeText(text));
     }

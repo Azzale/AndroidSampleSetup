@@ -14,12 +14,14 @@ import okhttp3.OkHttpClient;
 
 @Module
 public class MainModule {
+
     @Provides
-    public DataApi provideDataApy(RetroApiContainer retroApiContainer) {
+    public DataApi provideDataApi(RetroApiContainer retroApiContainer) {
         if (BuildConfig.DUMMY) {
             return new FakeDataApi();
+        } else {
+            return new RealDataApi(retroApiContainer);
         }
-        return new RealDataApi(retroApiContainer);
     }
 
     @Provides

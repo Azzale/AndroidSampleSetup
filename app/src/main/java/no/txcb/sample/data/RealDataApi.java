@@ -12,7 +12,7 @@ public class RealDataApi implements DataApi {
     }
 
     @Override
-    public Observable<String> getTitleObservable() {
+    public Observable<String> getProfileName() {
         return retroApiContainer.getProfileData().map(profileData -> profileData.name);
     }
 }

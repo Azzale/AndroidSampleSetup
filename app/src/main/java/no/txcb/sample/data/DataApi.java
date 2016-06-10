@@ -3,5 +3,5 @@ package no.txcb.sample.data;
 import rx.Observable;
 
 public interface DataApi {
-    Observable<String> getTitleObservable();
+    Observable<String> getProfileName();
 }
