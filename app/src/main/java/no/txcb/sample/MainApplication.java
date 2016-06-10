@@ -8,8 +8,6 @@ import no.txcb.sample.modules.AndroidModule;
 public class MainApplication extends Application {
 
 
-
-
     private static MainApplication instance;
 
     private MainComponent mainComponent;

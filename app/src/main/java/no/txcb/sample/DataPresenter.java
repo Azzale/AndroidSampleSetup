@@ -22,4 +22,18 @@ public class DataPresenter {
                 .compose(RxAssist.applyDefaultSchedulers())
                 .subscribe(text -> view.setWelcomeText(text));
     }
+
+    public void loginUser(String username, String password) {
+        dataApi.loginUser(username, password)
+            .compose(RxAssist.applyDefaultSchedulers())
+        .subscribe(aBoolean -> {
+            if(aBoolean){
+                view.setWelcomeText("Successfully logged in");
+            }else{
+                view.setWelcomeText("Failed to log in");
+            }
+        })
+        ;
+
+    }
 }

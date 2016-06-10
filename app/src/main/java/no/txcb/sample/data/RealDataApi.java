@@ -15,4 +15,9 @@ public class RealDataApi implements DataApi {
     public Observable<String> getProfileName() {
         return retroApiContainer.getProfileData().map(profileData -> profileData.name);
     }
+
+    @Override
+    public Observable<Boolean> loginUser(String username, String password) {
+        return retroApiContainer.getProfileData().map(profileData -> profileData.name.equals("Navn Navnesen"));
+    }
 }
