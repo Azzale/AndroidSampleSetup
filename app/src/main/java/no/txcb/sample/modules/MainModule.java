@@ -5,22 +5,22 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import no.txcb.sample.BuildConfig;
-import no.txcb.sample.FakeDataApi;
+import no.txcb.sample.login.FakeLoginApi;
 import no.txcb.sample.api.AndroidRetroApi;
 import no.txcb.sample.api.RetroApiContainer;
-import no.txcb.sample.data.DataApi;
-import no.txcb.sample.data.RealDataApi;
+import no.txcb.sample.login.RealLoginApi;
+import no.txcb.sample.login.loginApi;
 import okhttp3.OkHttpClient;
 
 @Module
 public class MainModule {
 
     @Provides
-    public DataApi provideDataApi(RetroApiContainer retroApiContainer) {
+    public loginApi provideDataApi(RealLoginApi realDataApi, FakeLoginApi fakeDataApi) {
         if (BuildConfig.DUMMY) {
-            return new FakeDataApi();
+            return fakeDataApi;
         } else {
-            return new RealDataApi(retroApiContainer);
+            return realDataApi;
         }
     }
 
