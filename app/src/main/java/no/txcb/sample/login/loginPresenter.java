@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import no.txcb.sample.MainApplication;
+import no.txcb.sample.R;
 import no.txcb.sample.tools.RxAssist;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -31,11 +32,11 @@ public class loginPresenter {
                 .subscribe(aBoolean -> {
                     view.showProgress(false);
                     if (aBoolean) {
-                        view.setWelcomeText("Successfully logged in");
+                        view.setWelcomeText(view.getContext().getString(R.string.successfully_logged_in));
                         view.loginCompleted();
                     } else {
                         loginApi.clearCache();
-                        view.setErrorText("Failed to log in");
+                        view.setErrorText(view.getContext().getString(R.string.failed_to_log_in));
                     }
                 });
         compositeSubscription.add(loginSub);

@@ -20,5 +20,6 @@ This project is still a WIP, a few of the missing features are the following:
 * Cached data examples, memory and disk
 * Espresso test example
 * Unit test example
+* Theme setup
 
 This list will most likely increase as work progresses and needs show themselves. 
