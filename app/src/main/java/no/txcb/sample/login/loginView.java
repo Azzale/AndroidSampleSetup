@@ -12,6 +12,5 @@ public interface loginView {
 
     void showProgress(boolean show);
 
-
     void setErrorText(String text);
 }
