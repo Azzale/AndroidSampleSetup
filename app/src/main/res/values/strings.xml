@@ -2,4 +2,8 @@
     <string name="app_name">Sample</string>
     <string name="successfully_logged_in">Successfully logged in</string>
     <string name="failed_to_log_in">Failed to log in</string>
+    <string name="not_logged_in">Not logged in</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>
