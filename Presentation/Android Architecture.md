@@ -1,20 +1,14 @@
-# Opinionated notes on building Android applications
+# Notes on building Android applications
 
 ![filtered 150% right](android.png)
-
----
-
-# [fit]But not really
-
-Based on popular and proven *frameworks* and *patterns*.
 
 ---
 
 # The pieces
 
 - Efficiency
-- Communication
 - Architecture
+- Communication
 
 ---
 
@@ -76,6 +70,111 @@ Small project, probably not.
 
 ![right fit filtered 160%](Tweety.png)
 
+
+---
+# Architecture and coding style
+
+- RX
+- MVP
+- Views
+- Presenters
+
+---
+# Rx
+
+- Learn about it!
+- Threading
+- Begin with basics
+- Don't use features without understanding them
+
+![right filtered 120%](rxjava.png)
+
+---
+
+# Observables
+
+Reactive programming is programming with asynchronous data streams.
+
+- An Observable is a Promise++
+
+---
+
+Scary diagram
+
+![center original 130%](marble.png)
+
+---
+
+Old way
+
+``` java
+
+private class GetStuffTask
+            extends AsyncTask<String, Void, Stuff> {
+
+  protected Stuff doInBackground(String... someData) {
+    String parameter = params[0];
+    Stuff stuff = StuffService.getStuff(parameter);
+    return stuff;
+  }
+
+  protected void onPostExecute(Stuff user) {
+    // Use the stuff
+  }
+}
+
+```
+
+---
+
+New way
+
+
+``` java
+StuffService
+    .subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(new Subscriber<Stuff>() {
+      @Override public void onCompleted() {
+        // Everything has been completed
+      }
+
+      @Override public void onError(Throwable e) {
+        // handle the error
+      }
+
+      @Override public void onNext(Stuff user) {
+        // Use the stuff
+      }
+    });
+```
+---
+
+#Why is this better?
+
+- Error handling
+- Memory leaks
+- Chaining network calls
+
+---
+Handle your subscriptions
+
+```java
+
+private CompositeSubscription comsub =
+          new CompositeSubscription();
+comsub.add(sub1);
+comsub.add(sub2);
+comsub.add(sub3);
+//clear all subscription on onDestroy
+@Override    
+public void onDestroy()
+{        
+     super.onDestroy();       
+     comsub.clear();    
+}
+
+```
 ---
 
 # Communication
@@ -84,6 +183,7 @@ Small project, probably not.
 - Third party dependencies
 - HTTP Communication
 - Caching
+- Mocked data
 - Pull vs Push
 
 ---
@@ -93,7 +193,6 @@ Small project, probably not.
 - Retrofit
 - OkHttp
 - Gson (Jackson if needed)
-- RxJava
 
 ![right filtered 80%](square.png)
 
@@ -138,17 +237,6 @@ public interface RetroApiDefinition {
 }
 
 ```
-
----
-# Architecture
-
-- Libraries
-- MVP
-- Views
-- Presenters
-- Mocked data
-
----
 
 <!--
 ```java

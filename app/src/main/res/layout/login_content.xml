@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -12,25 +11,39 @@
             type="no.txcb.sample.databinding.ErrorModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:id="@+id/activity_main"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="5dp"
         android:visibility="@{errorModel.showProgress ? View.GONE : View.VISIBLE}"
         tools:context="no.txcb.sample.login.LoginActivity"
         tools:showIn="@layout/activity_login">
 
         <TextView
-            android:id="@+id/welcome_text"
+            android:id="@+id/userNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/not_logged_in"
-            app:layout_constraintLeft_toLeftOf="@+id/activity_main"
-            app:layout_constraintRight_toRightOf="@+id/activity_main"
-            app:layout_constraintTop_toBottomOf="@+id/button"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1" />
+            android:text="@string/username" />
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/passwordTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/button"
@@ -38,54 +51,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:enabled="false"
-            android:text="@string/login"
-            app:layout_constraintLeft_toLeftOf="@+id/activity_main"
-            app:layout_constraintRight_toRightOf="@+id/activity_main"
-            app:layout_constraintTop_toBottomOf="@+id/password"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1" />
-
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginTop="62dp"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            app:layout_constraintLeft_toLeftOf="@+id/activity_main"
-            app:layout_constraintRight_toRightOf="@+id/activity_main"
-            app:layout_constraintTop_toTopOf="@+id/activity_main"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintTop_creator="1" />
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="42dp"
-            android:layout_marginTop="40dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            app:layout_constraintLeft_toLeftOf="@+id/activity_main"
-            app:layout_constraintRight_toRightOf="@+id/activity_main"
-            app:layout_constraintTop_toBottomOf="@+id/username"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1" />
+            android:text="@string/login" />
 
         <TextView
-            android:id="@+id/userNameTextView"
-            android:layout_width="64dp"
-            android:layout_height="22dp"
-            android:text="@string/username"
-            app:layout_constraintBottom_toTopOf="@+id/username"
-            app:layout_constraintLeft_toLeftOf="@+id/username" />
+            android:id="@+id/welcome_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/not_logged_in" />
 
-        <TextView
-            android:id="@+id/passwordTextView"
-            android:layout_width="58dp"
-            android:layout_height="16dp"
-            android:text="@string/password"
-            app:layout_constraintBottom_toTopOf="@+id/password"
-            app:layout_constraintRight_toRightOf="@+id/userNameTextView" />
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 </layout>
