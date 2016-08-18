@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import no.txcb.sample.R;
 import no.txcb.sample.databinding.ActivityLoginBinding;
@@ -69,7 +70,7 @@ public class LoginActivity extends AppCompatActivity implements loginView {
 
     @Override
     public void loginCompleted() {
-        finish();
+        Toast.makeText(this, "Login success!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

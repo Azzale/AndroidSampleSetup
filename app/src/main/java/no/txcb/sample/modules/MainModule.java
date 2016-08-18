@@ -5,12 +5,13 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import no.txcb.sample.BuildConfig;
-import no.txcb.sample.login.FakeLoginApi;
 import no.txcb.sample.api.AndroidRetroApi;
 import no.txcb.sample.api.RetroApiContainer;
+import no.txcb.sample.login.FakeLoginApi;
 import no.txcb.sample.login.RealLoginApi;
 import no.txcb.sample.login.loginApi;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 @Module
 public class MainModule {
@@ -32,7 +33,10 @@ public class MainModule {
     @Provides
     @Singleton
     public OkHttpClient provideOkHttpClient() {
+            HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return new OkHttpClient.Builder()
+                .addInterceptor(httpLoggingInterceptor)
                 .build();
     }
 

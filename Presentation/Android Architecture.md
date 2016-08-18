@@ -18,6 +18,7 @@
 - Separate Java project
 - Multidexing
 - Cutting edge
+- Testing
 
 ---
 
@@ -29,7 +30,7 @@
 - Retrolambda (until Jack and Jill arrives)
 - Fabric and Crashlytics
 - Firebase?
-
+- DataBinding
 
 ![right filtered 120%](rxjava.png)
 
@@ -38,7 +39,7 @@
 # Separate Java project
 
 *Pros*
-- Allows running code directly on the JVM
+- Allows running code on the JVM
 - Forces a one way dependency
 - Writing tests is a smoother experience
 
@@ -67,22 +68,21 @@ Small project, probably not.
 - Stay current
 - Try out the latest libraries
 - UI deprecates fast
+- Android Weekly
 
 ![right fit filtered 160%](Tweety.png)
 
 
 ---
-# Architecture and coding style
+# Architecture
 
 - RX
 - MVP
-- Views
-- Presenters
 
 ---
 # Rx
 
-- Learn about it!
+- Learn
 - Threading
 - Begin with basics
 - Don't use features without understanding them
@@ -148,6 +148,7 @@ StuffService
       }
     });
 ```
+
 ---
 
 #Why is this better?
@@ -175,6 +176,21 @@ public void onDestroy()
 }
 
 ```
+
+---
+
+# MVP
+
+![filtered 80%](MVP.png)
+
+---
+
+# MVP
+
+- Activities/Fragments implements views
+- See project for sample implementation
+- [https://github.com/Arnesen/AndroidSampleSetup.git](https://github.com/Arnesen/AndroidSampleSetup.git)
+
 ---
 
 # Communication
@@ -237,24 +253,10 @@ public interface RetroApiDefinition {
 }
 
 ```
-
-<!--
-```java
-
-private void openNewFragment(BaseFragment newFragment) {
-    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-    fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.enter, R.anim.exit);
-    fragmentTransaction.replace(R.id.menu_frame_two, newFragment, newFragment.getFragmentName());
-    fragmentTransaction.commit();
-}
-
-
-``` -->
-<!-- Sometimes it’s helpful to keep some notes in your document, without having to show them in your presentation. You can use simple HTML-style commenting syntax to do this. -->
-
-<!--
-You can even skip entire slides, without having to delete your thoughts.
 ---
-# Maybe this is an awesome slide, but then again, maybe not.
----
--->
+
+# Other
+
+- Kotlin
+- Espresso UI testing
+- Firebase and Data sync
