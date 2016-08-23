@@ -2,7 +2,7 @@ package no.txcb.sample.login;
 
 import android.content.Context;
 
-public interface loginView {
+public interface LoginView {
 
     void setWelcomeText(String text);
 

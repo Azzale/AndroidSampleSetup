@@ -1,5 +1,8 @@
 package no.txcb.sample.api;
 
+import java.util.List;
+
+import no.txcb.sample.comments.models.Comment;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -28,5 +31,10 @@ public class AndroidRetroApi implements RetroApiContainer {
     @Override
     public Observable<ProfileData> getProfileData() {
         return api.getProfile();
+    }
+
+    @Override
+    public Observable<List<Comment>> getComments() {
+        return api.getComments();
     }
 }

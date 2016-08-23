@@ -1,13 +1,10 @@
-package no.txcb.sample.api;
+package no.txcb.sample.comments;
 
 import java.util.List;
 
 import no.txcb.sample.comments.models.Comment;
 import rx.Observable;
 
-public interface RetroApiContainer {
-
-    Observable<ProfileData> getProfileData();
-
+public interface CommentsApi {
     Observable<List<Comment>> getComments();
 }

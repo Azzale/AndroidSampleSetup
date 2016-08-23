@@ -4,7 +4,8 @@ package no.txcb.sample;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import no.txcb.sample.login.loginPresenter;
+import no.txcb.sample.comments.CommentsPresenter;
+import no.txcb.sample.login.LoginPresenter;
 import no.txcb.sample.modules.RootModule;
 
 @Component(
@@ -14,5 +15,6 @@ import no.txcb.sample.modules.RootModule;
 )
 @Singleton
 public interface MainComponent {
-        void inject(loginPresenter loginPresenter);
+        void inject(LoginPresenter loginPresenter);
+        void inject(CommentsPresenter commentsPresenter);
 }

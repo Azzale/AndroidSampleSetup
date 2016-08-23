@@ -1,0 +1,27 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="errorModel"
+            type="no.txcb.sample.databinding.ErrorModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/progress_error_view"
+            bind:errorModel="@{errorModel}" />
+
+        <include
+            android:id="@+id/commentsContent"
+            layout="@layout/comments_content"
+            bind:errorModel="@{errorModel}" />
+    </LinearLayout>
+</layout>

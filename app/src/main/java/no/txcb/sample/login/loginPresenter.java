@@ -13,15 +13,15 @@ import no.txcb.sample.tools.RxAssist;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
-public class loginPresenter {
-    private loginView view;
+public class LoginPresenter {
+    private LoginView view;
 
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     @Inject
-    loginApi loginApi;
+    LoginApi loginApi;
 
-    public void attachView(loginView view) {
+    public void attachView(LoginView view) {
         this.view = view;
         MainApplication.component(view.getContext()).inject(this);
     }

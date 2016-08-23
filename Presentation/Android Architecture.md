@@ -118,7 +118,7 @@ private class GetStuffTask
     return stuff;
   }
 
-  protected void onPostExecute(Stuff user) {
+  protected void onPostExecute(Stuff stuff) {
     // Use the stuff
   }
 }
@@ -143,7 +143,7 @@ StuffService
         // handle the error
       }
 
-      @Override public void onNext(Stuff user) {
+      @Override public void onNext(Stuff stuff) {
         // Use the stuff
       }
     });
@@ -151,13 +151,6 @@ StuffService
 
 ---
 
-#Why is this better?
-
-- Error handling
-- Memory leaks
-- Chaining network calls
-
----
 Handle your subscriptions
 
 ```java
@@ -176,6 +169,14 @@ public void onDestroy()
 }
 
 ```
+
+---
+
+#Why is this better?
+
+- Error handling
+- Memory leaks
+- Chaining network calls
 
 ---
 

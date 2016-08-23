@@ -1,12 +1,14 @@
 package no.txcb.sample.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import no.txcb.sample.R;
+import no.txcb.sample.comments.CommentsActivity;
 import no.txcb.sample.databinding.ActivityLoginBinding;
 import no.txcb.sample.databinding.ErrorModel;
 import no.txcb.sample.tools.RxAssist;
@@ -15,9 +17,9 @@ import rx.Subscription;
 import rx.subjects.PublishSubject;
 import rx.subscriptions.CompositeSubscription;
 
-public class LoginActivity extends AppCompatActivity implements loginView {
+public class LoginActivity extends AppCompatActivity implements LoginView {
 
-    private no.txcb.sample.login.loginPresenter loginPresenter;
+    private LoginPresenter LoginPresenter;
 
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
@@ -30,8 +32,8 @@ public class LoginActivity extends AppCompatActivity implements loginView {
         super.onCreate(savedInstanceState);
 
         // Presenter
-        loginPresenter = new loginPresenter();
-        loginPresenter.attachView(this);
+        LoginPresenter = new LoginPresenter();
+        LoginPresenter.attachView(this);
 
         // Databinding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
@@ -39,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements loginView {
         binding.setErrorModel(errorModel);
 
         binding.loginContent.button.setOnClickListener(view ->
-                loginPresenter.loginUser(binding.loginContent.username.getText().toString(), binding.loginContent.password.getText().toString()));
+                LoginPresenter.loginUser(binding.loginContent.username.getText().toString(), binding.loginContent.password.getText().toString()));
         PublishSubject<String> usernameSubject = PublishSubject.create();
         PublishSubject<String> passwordSubject = PublishSubject.create();
 
@@ -54,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements loginView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        loginPresenter.stop();
+        LoginPresenter.stop();
         compositeSubscription.unsubscribe();
     }
 
@@ -71,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements loginView {
     @Override
     public void loginCompleted() {
         Toast.makeText(this, "Login success!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, CommentsActivity.class));
     }
 
     @Override

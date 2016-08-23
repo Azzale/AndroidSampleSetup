@@ -6,7 +6,7 @@ import no.txcb.sample.api.RetroApiContainer;
 import no.txcb.sample.tools.ObservableCache;
 import rx.Observable;
 
-public class RealLoginApi implements loginApi {
+public class RealLoginApi implements LoginApi {
 
     private RetroApiContainer retroApiContainer;
     private ObservableCache observableCache;

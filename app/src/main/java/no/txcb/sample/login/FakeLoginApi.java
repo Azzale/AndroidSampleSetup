@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import rx.Observable;
 
-public class FakeLoginApi implements loginApi {
+public class FakeLoginApi implements LoginApi {
     @Inject
     public FakeLoginApi() {
         super();
