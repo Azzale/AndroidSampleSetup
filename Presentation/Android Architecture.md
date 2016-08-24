@@ -4,6 +4,14 @@
 
 ---
 
+# Sample project
+
+[https://github.com/Arnesen/AndroidSampleSetup.git](https://github.com/Arnesen/AndroidSampleSetup.git)
+
+Go get it
+
+---
+
 # The pieces
 
 - Efficiency
@@ -182,7 +190,7 @@ public void onDestroy()
 
 # MVP
 
-![filtered 80%](MVP.png)
+![](MVP.png)
 
 ---
 
@@ -199,9 +207,7 @@ public void onDestroy()
 - Libraries
 - Third party dependencies
 - HTTP Communication
-- Caching
 - Mocked data
-- Pull vs Push
 
 ---
 
