@@ -15,6 +15,7 @@ import no.txcb.sample.modules.RootModule;
 )
 @Singleton
 public interface MainComponent {
-        void inject(LoginPresenter loginPresenter);
         void inject(CommentsPresenter commentsPresenter);
+
+        void inject(LoginPresenter loginPresenter);
 }
