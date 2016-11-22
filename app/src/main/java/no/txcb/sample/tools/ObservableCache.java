@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import rx.Observable;
 
+@Singleton
 public class ObservableCache {
 
 
@@ -14,7 +15,7 @@ public class ObservableCache {
 
 
     @Inject
-    @Singleton
+
     public ObservableCache() {
         super();
         apiObservables = new LruCache<>(10);
@@ -28,7 +29,7 @@ public class ObservableCache {
         Observable<?> preparedObservable = null;
 
         if (useCache) {
-            preparedObservable = apiObservables.get(clazz+key);
+            preparedObservable = apiObservables.get(clazz + key);
         }
 
         if (preparedObservable != null) {
@@ -40,7 +41,7 @@ public class ObservableCache {
 
         if (cacheObservable) {
             preparedObservable = preparedObservable.cache();
-            apiObservables.put(clazz+key, preparedObservable);
+            apiObservables.put(clazz + key, preparedObservable);
         }
 
         return preparedObservable;
