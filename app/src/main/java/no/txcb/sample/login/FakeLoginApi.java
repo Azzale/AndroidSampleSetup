@@ -2,7 +2,8 @@ package no.txcb.sample.login;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 public class FakeLoginApi implements LoginApi {
     @Inject

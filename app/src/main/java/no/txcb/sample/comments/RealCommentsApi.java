@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import no.txcb.sample.api.RetroApiContainer;
 import no.txcb.sample.comments.models.Comment;
-import rx.Observable;
 
 public class RealCommentsApi implements CommentsApi {
 

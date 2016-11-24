@@ -2,9 +2,9 @@ package no.txcb.sample.login;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import no.txcb.sample.api.RetroApiContainer;
 import no.txcb.sample.tools.ObservableCache;
-import rx.Observable;
 
 public class RealLoginApi implements LoginApi {
 

@@ -1,13 +1,14 @@
 package no.txcb.sample.api;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import java.util.List;
 
+import io.reactivex.Observable;
 import no.txcb.sample.comments.models.Comment;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
 
 public class AndroidRetroApi implements RetroApiContainer {
 
@@ -21,7 +22,7 @@ public class AndroidRetroApi implements RetroApiContainer {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
        return retrofit.create(RetroApiDefinition.class);

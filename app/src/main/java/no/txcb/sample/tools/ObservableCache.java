@@ -5,7 +5,8 @@ import android.support.v4.util.LruCache;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 @Singleton
 public class ObservableCache {

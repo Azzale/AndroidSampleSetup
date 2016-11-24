@@ -1,6 +1,7 @@
 package no.txcb.sample.login;
 
-import rx.Observable;
+
+import io.reactivex.Observable;
 
 public interface LoginApi {
 

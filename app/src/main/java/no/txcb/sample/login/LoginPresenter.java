@@ -6,17 +6,18 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import no.txcb.sample.BuildConfig;
 import no.txcb.sample.MainApplication;
 import no.txcb.sample.R;
-import no.txcb.sample.tools.RxAssist;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
 
 public class LoginPresenter {
     private LoginView view;
 
-    private CompositeSubscription compositeSubscription = new CompositeSubscription();
+    private CompositeDisposable compositeSubscription = new CompositeDisposable();
 
     @Inject
     LoginApi loginApi;
@@ -29,9 +30,10 @@ public class LoginPresenter {
 
     public void loginUser(String username, String password) {
         view.showProgress(true);
-        Subscription loginSub = loginApi.loginUser(username, password)
+        Disposable loginSub = loginApi.loginUser(username, password)
                 .delay(5, TimeUnit.SECONDS)
-                .compose(RxAssist.applyDefaultSchedulers())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
                     view.showProgress(false);
                     if (BuildConfig.DEBUG) {
@@ -53,6 +55,6 @@ public class LoginPresenter {
     }
 
     public void stop() {
-        compositeSubscription.unsubscribe();
+        compositeSubscription.clear();
     }
 }

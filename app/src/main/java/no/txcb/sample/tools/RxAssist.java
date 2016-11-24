@@ -4,16 +4,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import rx.subjects.PublishSubject;
+import io.reactivex.subjects.PublishSubject;
+
 
 public class RxAssist {
-    public static <T> Observable.Transformer<T, T> applyDefaultSchedulers() {
-        return observable -> observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
 
     public static void setOnTextChanged(EditText userName, final PublishSubject<String> usernameSubject) {
         userName.addTextChangedListener(new TextWatcher() {

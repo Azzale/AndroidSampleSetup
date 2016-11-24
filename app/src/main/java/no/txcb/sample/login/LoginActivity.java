@@ -7,21 +7,21 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.PublishSubject;
 import no.txcb.sample.R;
 import no.txcb.sample.comments.CommentsActivity;
 import no.txcb.sample.databinding.ActivityLoginBinding;
 import no.txcb.sample.databinding.ErrorModel;
 import no.txcb.sample.tools.RxAssist;
-import rx.Observable;
-import rx.Subscription;
-import rx.subjects.PublishSubject;
-import rx.subscriptions.CompositeSubscription;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private LoginPresenter LoginPresenter;
 
-    private CompositeSubscription compositeSubscription = new CompositeSubscription();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private ErrorModel errorModel;
     private ActivityLoginBinding binding;
@@ -47,17 +47,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         RxAssist.setOnTextChanged(binding.loginContent.username, usernameSubject);
         RxAssist.setOnTextChanged(binding.loginContent.password, passwordSubject);
-        Subscription subscribe = Observable.combineLatest(usernameSubject, passwordSubject,
+        Disposable subscribe = Observable.combineLatest(usernameSubject, passwordSubject,
                 (username, password) -> username.length() > 5 && password.length() > 5)
                 .subscribe(binding.loginContent.button::setEnabled);
-        compositeSubscription.add(subscribe);
+        compositeDisposable.add(subscribe);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         LoginPresenter.stop();
-        compositeSubscription.unsubscribe();
+        compositeDisposable.clear();
     }
 
     @Override

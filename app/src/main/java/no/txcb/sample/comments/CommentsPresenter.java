@@ -4,14 +4,18 @@ import java.net.UnknownHostException;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import no.txcb.sample.MainApplication;
-import no.txcb.sample.tools.RxAssist;
-import rx.Observable;
 
 public class CommentsPresenter {
 
     private CommentsView view;
 
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Inject
     CommentsApi commentsApi;
 
@@ -26,16 +30,17 @@ public class CommentsPresenter {
 
 
     void loadComments() {
-        commentsApi.getComments().compose(RxAssist.applyDefaultSchedulers())
-                .flatMap(Observable::from)
+        Disposable subscribe = commentsApi.getComments()
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .flatMap(Observable::fromIterable)
                 .map(comment -> comment.body)
                 .toList()
-                .subscribe(comments -> {
-                    view.showComments(comments);
-                }, throwable -> {
+                .subscribe(comments -> view.showComments(comments), throwable -> {
                     if (throwable instanceof UnknownHostException) {
                         view.setError("Missing network");
                     }
                 });
+
+        compositeDisposable.add(subscribe);
     }
 }
