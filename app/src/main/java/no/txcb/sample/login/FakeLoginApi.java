@@ -20,4 +20,9 @@ public class FakeLoginApi implements LoginApi {
     public void clearCache() {
 
     }
+
+    @Override
+    public Observable<Boolean> checkIfUserLoggedIn() {
+        return Observable.just(false);
+    }
 }

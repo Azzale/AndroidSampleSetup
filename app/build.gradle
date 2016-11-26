@@ -5,7 +5,7 @@ apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.1'
     defaultConfig {
         applicationId "no.txcb.sample"
         minSdkVersion 19
@@ -45,20 +45,20 @@ android {
     }
 }
 
+configurations {
+    all*.exclude group: 'com.google.android.gms', module: 'play-services-wallet'
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // FirebaseUI Auth only
+    compile 'com.firebaseui:firebase-ui-auth:1.0.0'
+
     compile 'com.android.support:appcompat-v7:25.0.1'
-
-    // dagger
     compile 'com.google.dagger:dagger:2.7'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
-
-    // rxjava
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-
     compile 'io.reactivex.rxjava2:rxjava:2.0.1'
-
-    // web communication
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.retrofit2:retrofit:2.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
@@ -66,10 +66,12 @@ dependencies {
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.android.support:recyclerview-v7:25.0.1'
-
-
+//    compile 'com.google.firebase:firebase-auth:10.0.0'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support:support-annotations:25.0.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
 }
+
+apply plugin: 'com.google.gms.google-services'

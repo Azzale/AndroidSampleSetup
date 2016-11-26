@@ -2,9 +2,7 @@ package no.txcb.sample.login;
 
 import android.content.Context;
 
-public interface LoginView {
-
-    void setWelcomeText(String text);
+interface LoginView {
 
     Context getContext();
 
@@ -13,4 +11,7 @@ public interface LoginView {
     void showProgress(boolean show);
 
     void setErrorText(String text);
+
+    void startThirdPartyLogin();
+
 }

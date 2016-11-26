@@ -8,4 +8,6 @@ public interface LoginApi {
     Observable<Boolean> loginUser(String username, String password);
 
     void clearCache();
+
+    Observable<Boolean> checkIfUserLoggedIn();
 }

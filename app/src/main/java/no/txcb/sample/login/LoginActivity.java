@@ -4,18 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
-import io.reactivex.Observable;
+
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.ui.ResultCodes;
+
+import java.util.Arrays;
+
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.subjects.PublishSubject;
 import no.txcb.sample.R;
 import no.txcb.sample.comments.CommentsActivity;
 import no.txcb.sample.databinding.ActivityLoginBinding;
 import no.txcb.sample.databinding.ErrorModel;
-import no.txcb.sample.tools.RxAssist;
+
+import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
+
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
@@ -33,24 +38,59 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         // Presenter
         LoginPresenter = new LoginPresenter();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         LoginPresenter.attachView(this);
 
         // Databinding
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         errorModel = new ErrorModel();
         binding.setErrorModel(errorModel);
 
-        binding.loginContent.button.setOnClickListener(view ->
-                LoginPresenter.loginUser(binding.loginContent.username.getText().toString(), binding.loginContent.password.getText().toString()));
-        PublishSubject<String> usernameSubject = PublishSubject.create();
-        PublishSubject<String> passwordSubject = PublishSubject.create();
 
-        RxAssist.setOnTextChanged(binding.loginContent.username, usernameSubject);
-        RxAssist.setOnTextChanged(binding.loginContent.password, passwordSubject);
-        Disposable subscribe = Observable.combineLatest(usernameSubject, passwordSubject,
-                (username, password) -> username.length() > 5 && password.length() > 5)
-                .subscribe(binding.loginContent.button::setEnabled);
-        compositeDisposable.add(subscribe);
+        LoginPresenter.startLoginFlow();
+        binding.loginContent.button.setOnClickListener(view ->
+                LoginPresenter.startLoginFlow());
+    }
+
+    @Override
+    public void startThirdPartyLogin() {
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                        .build(),
+                RC_SIGN_IN);
+    }
+
+    private void snackBar(String text) {
+        Snackbar.make(binding.getRoot(), text, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            // user is signed in!
+            startComments();
+            return;
+        }
+
+        // Sign in canceled
+        if (resultCode == RESULT_CANCELED) {
+            snackBar("Login cancelled");
+            binding.loginContent.button.setEnabled(true);
+            return;
+        }
+
+        // No network
+        if (resultCode == ResultCodes.RESULT_NO_NETWORK) {
+            snackBar("No network, please try again later");
+            binding.loginContent.button.setEnabled(true);
+            return;
+        }
+
+        // User is not signed in. Maybe just wait for the user to press
+        // "sign in" again, or show a message.
     }
 
     @Override
@@ -61,19 +101,18 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void setWelcomeText(String text) {
-        binding.loginContent.welcomeText.setText(text);
-    }
-
-    @Override
     public Context getContext() {
         return this;
     }
 
     @Override
     public void loginCompleted() {
-        Toast.makeText(this, "Login success!", Toast.LENGTH_SHORT).show();
+        startComments();
+    }
+
+    private void startComments() {
         startActivity(new Intent(this, CommentsActivity.class));
+        finish();
     }
 
     @Override
@@ -83,6 +122,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void setErrorText(String text) {
-        binding.loginContent.password.setError(text);
+        binding.loginContent.button.setEnabled(true);
+        snackBar(text);
     }
+
 }
