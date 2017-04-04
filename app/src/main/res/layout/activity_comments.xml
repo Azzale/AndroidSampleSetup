@@ -19,6 +19,7 @@
             layout="@layout/progress_error_view"
             bind:errorModel="@{errorModel}" />
 
+
         <include
             android:id="@+id/commentsContent"
             layout="@layout/comments_content"

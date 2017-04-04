@@ -16,6 +16,7 @@ public class CommentsPresenter {
     private CommentsView view;
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
     @Inject
     CommentsApi commentsApi;
 
@@ -31,7 +32,8 @@ public class CommentsPresenter {
 
     void loadComments() {
         Disposable subscribe = commentsApi.getComments()
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(Observable::fromIterable)
                 .map(comment -> comment.body)
                 .toList()

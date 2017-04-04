@@ -12,7 +12,7 @@ public class RealLoginApi implements LoginApi {
     private ObservableCache observableCache;
 
     @Inject
-    public RealLoginApi(RetroApiContainer retroApiContainer, ObservableCache observableCache) {
+    RealLoginApi(RetroApiContainer retroApiContainer, ObservableCache observableCache) {
         this.retroApiContainer = retroApiContainer;
         this.observableCache = observableCache;
     }

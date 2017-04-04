@@ -4,9 +4,12 @@ import android.content.Context;
 
 import java.util.List;
 
-public interface CommentsView {
+interface CommentsView {
+
     Context getContext();
+
     void showComments(List<String> comments);
 
     void setError(String error);
+
 }

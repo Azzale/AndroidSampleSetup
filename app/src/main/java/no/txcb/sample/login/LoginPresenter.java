@@ -22,16 +22,15 @@ public class LoginPresenter {
     @Inject
     LoginApi loginApi;
 
-    public void attachView(LoginView view) {
+    void attachView(LoginView view) {
         this.view = view;
         MainApplication.component(view.getContext()).inject(this);
     }
 
 
-    public void loginUser(String username, String password) {
+    void loginUser(String username, String password) {
         view.showProgress(true);
         Disposable loginSub = loginApi.loginUser(username, password)
-                .delay(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
