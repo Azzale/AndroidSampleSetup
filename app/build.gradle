@@ -1,29 +1,30 @@
 def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "no.txcb.sample"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         vectorDrawables.useSupportLibrary = true
     }
-
+    flavorDimensions "normal"
     productFlavors {
         production {
+            dimension "normal"
             applicationId "tx.app.prod"
             buildConfigField "boolean", "DUMMY", "false"
             buildConfigField "String", "ENVIRONMENT", "\"dummy\""
         }
         dummy {
+            dimension "normal"
             applicationId "tx.app.dummy"
             buildConfigField "boolean", "DUMMY", "true"
             buildConfigField "String", "ENVIRONMENT", "\"dummy\""
@@ -47,29 +48,28 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
 
     // dagger
-    compile 'com.google.dagger:dagger:2.9'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
+    compile 'com.google.dagger:dagger:2.11'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
 
     // rxjava
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
-    compile 'io.reactivex.rxjava2:rxjava:2.0.8'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
 
     // web communication
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.squareup.retrofit2:retrofit:2.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
 
 
     testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support:support-annotations:25.3.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestCompile 'com.android.support.test:runner:1.0.1'
 }
