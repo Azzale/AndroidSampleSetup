@@ -7,6 +7,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import no.txcb.sample.comments.models.Comment;
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -37,5 +38,15 @@ public class AndroidRetroApi implements RetroApiContainer {
     @Override
     public Observable<List<Comment>> getComments() {
         return api.getComments();
+    }
+
+    @Override
+    public Observable<Comment> postComment(Comment comment) {
+       return api.postComment(comment);
+    }
+
+    @Override
+    public Call<Comment> deleteComment(long id) {
+        return api.deleteComment(id);
     }
 }

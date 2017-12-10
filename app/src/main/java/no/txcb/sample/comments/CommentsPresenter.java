@@ -10,6 +10,10 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import no.txcb.sample.MainApplication;
+import no.txcb.sample.comments.models.Comment;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CommentsPresenter {
 
@@ -35,7 +39,6 @@ public class CommentsPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(Observable::fromIterable)
-                .map(comment -> comment.body)
                 .toList()
                 .subscribe(comments -> view.showComments(comments), throwable -> {
                     if (throwable instanceof UnknownHostException) {
@@ -44,5 +47,36 @@ public class CommentsPresenter {
                 });
 
         compositeDisposable.add(subscribe);
+    }
+
+    void postComment(String comment) {
+        Disposable subscribe = commentsApi.postComment(comment)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(newComment -> view.onCommentAdded(newComment), throwable -> {
+                    if (throwable instanceof UnknownHostException) {
+                        view.setError("Missing network");
+                    }
+                });
+
+        compositeDisposable.add(subscribe);
+    }
+
+    public void deleteComment(long id) {
+        Call<Comment> call = commentsApi.deleteComment(id);
+        call.enqueue(new Callback<Comment>() {
+            @Override
+            public void onResponse(Call<Comment> call, Response<Comment> response) {
+
+                if(response.isSuccessful()) {
+                    view.onCommentAdded(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Comment> call, Throwable t) {
+                view.setError(""+t.getLocalizedMessage());
+            }
+        });
     }
 }

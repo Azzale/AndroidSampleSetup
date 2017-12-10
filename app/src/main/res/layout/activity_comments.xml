@@ -23,6 +23,18 @@
         <include
             android:id="@+id/commentsContent"
             layout="@layout/comments_content"
+            android:background="@color/colorAccent"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
             bind:errorModel="@{errorModel}" />
+
+        <EditText
+            android:id="@+id/addComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_comment_hint"
+            android:singleLine="true"
+            />
     </LinearLayout>
 </layout>
